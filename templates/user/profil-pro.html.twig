@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Profil utilisateur - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/user-profil.css') }}">
+{% endblock %}
+
+{% block body %}
+<section class="profil">
+    <h1 class="title-custom marginbt-1">Mon profil Producteur</h1>
+
+    <div class="content flex">
+        <div class="start-pro margin ">
+            <img class="marginbt-1" src="{{ asset('images/avatar/profil-pro.png')}}"  alt="avatar">
+            {# <p>Modifiez votre avatar ?</p> #}
+            <button class="btn btn-second logout" type="submit" form="form" value="Submit">
+                <a href="{{ path('user_logout') }}">Se déconnecter</a>
+            </button>
+        </div>
+
+        <div class="infos margin">
+            <a href="{{ path('user_profile-edit') }}" style="font-weight: bold">
+                Modifier le profil
+                <i class="fas fa-edit"></i>
+            </a>
+
+            <h4>Pseudo :</h4>
+            <div class="text-icon">
+                <p>{{ user.username }}</p>
+
+            </div>
+
+            <h4>Email :</h4>
+            <div class="text-icon">
+                <p>{{ user.email }}</p>
+
+            </div>
+
+            {% if (app.user.lastname) and  (app.user.firstname) %}
+            <h4>Nom et Prénom du gérant:</h4>
+            <div class="text-icon">
+                <p>{{ user.lastname }} {{ user.firstname }} </p>
+
+            </div>
+            {% endif %}
+            <div class="newsletter-option">
+                <h4>Souhaitez-vous être abonné à notre newsletter ?</h4>
+                <i class="fas fa-toggle-off"></i>
+            </div>
+
+        </div>
+        <div class="end-pro margin">
+
+            <button class="marginbt-1 btn btn-second">
+                <a href="{{ path('store_create')}}"><i class="fa-solid fa-plus m-r-1"></i>Ajouter une boutique</a>
+            </button>
+            <button class="marginbt-1 btn btn-second">
+                <a href="{{ path('store_indexpro')}}"><i class="fas fa-store m-r-1"></i>Gérer mes boutiques</a>
+            </button>
+            <button class="marginbt-1 btn btn-main-outline">
+                <a href="#" >Une question ? <br> Contactez le support technique</a>
+            </button>
+
+            </div>  
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

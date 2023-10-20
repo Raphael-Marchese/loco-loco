@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Se connecter - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/user/login.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section class="login">
+
+        <div class=" popup_container-login flex box-shadow">
+
+            <div class="form-img"></div>
+
+            <div class="form-content__container">
+
+                <div class="title-content marginbt-3">
+                    <h1>Bienvenue</h1>
+                    <p class="sub">chez Loco Loco</p>
+                </div>
+
+                <div class="form-content">
+
+                {# --- FORM START --- #}
+                    <form method="post">
+
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+                        {# Si l'utilisateur est déjà connecté : #}
+                        {% if app.user %}
+                            <div class="user-already-connected flex marginbt-1">
+                                <p class="marginbt-1">
+                                    Vous êtes déjà connecté en tant que <br> <span class="bold">{{ app.user.userIdentifier }}</span> 
+                                </p>
+                                <a href="{{ path('user_logout') }}">
+                                    <button class="btn-custom btn-second marginbt-1">
+                                        Se déconnecter
+                                    </button>    
+                                </a>
+                                <p class="marginbt-1">----- Ou -----</p>
+                                <a href="{{ path('main_index')}}">Retournez sur la page d'accueil</a>
+                            </div>
+                        {% else %}
+
+                        <div class="inputWithLabel flex">
+
+                            <div class="item">
+                                <label class="custom-field" for="inputEmail">
+                                    <input class="input-style" type="email" value="{{ lastUsername }}" name="email" id="inputEmail" autocomplete="email" required autofocus>
+                                    <span class="placeholder"><i class="far fw fa-envelope"></i> <span class="tiret">-</span> Email *</span>
+                                </label>
+                            </div>
+
+                            <div class="item">
+                                <label class="custom-field" for="inputPassword">
+                                    <input class="input-style" type="password" name="password" id="inputPassword" required>
+                                    <span class="placeholder"><i class="fas fa-lock"></i> <span class="tiret">-</span> Mot de passe *</span>
+                                </label>
+                                <a href="#">Mot de passe oublié ?</a>
+                            </div>
+
+                            <div class="item">
+                                <input type="hidden" name="_csrf_token"
+                                value="{{ csrf_token('authenticate') }}">
+                            </div>
+
+                            <div class="item">
+                                {# On le met ou pas?? #}
+                                {# Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                                See https://symfony.com/doc/current/security/remember_me.html
+
+                                <div class="checkbox mb-3">
+                                    <label>
+                                        <input type="checkbox" name="_remember_me"> Remember me
+                                    </label>
+                                </div> #}
+                            </div>
+
+                        </div>
+                
+                    
+                </div>
+
+                <button type="submit" class="btn btn-second submit flex">
+                    Se connecter
+                </button>
+                {% endif %}
+            </form>
+                {# --- FORM END --- #}
+            </div>
+        </div>
+
+    </section>
+
+
+
+{% endblock %}
+
+
+

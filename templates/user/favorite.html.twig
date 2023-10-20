@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Mes favoris - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/user/favorite.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section class="favorite">
+            <h1 class="title-custom marginbt-3">Mes favoris</h1>
+
+            <div class="favorite__container">
+            {% if favoritesList %}
+                {% for favorite in favoritesList %}
+                <div class="favorite-item flex marginbt-1">
+                    <div class="img-container">
+                        <img src="{{ 'images/uploads/stores/' ~ favorite.picture }}" alt="farm">
+                    </div>
+                    <div class="details-container">
+                        <h4>{{ favorite.name }}</h4>
+                {% for address in favorite.addresses %}
+
+                        <p>{{ address.street }}, {{ address.city }}</p>
+                        <p>{{ address.zipcode }}</p>
+            {% endfor %}
+
+                    </div>
+                    <div class="delete flex">
+                        <a href="{{ path('user_remove_favorite', {id: favorite.id}) }}"> <i class="fas fa-times"></i></a>
+                    </div>
+                </div>
+            {% endfor %}
+            {% else %}
+            <p class="none-store">Aucune boutique ajoutée dans vos favoris.</p>
+            {% endif %}
+            </div>
+    </section>
+
+{% endblock %}
